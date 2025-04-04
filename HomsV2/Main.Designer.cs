@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panel1 = new System.Windows.Forms.Panel();
             this.maximize = new System.Windows.Forms.Button();
             this.minimize = new System.Windows.Forms.Button();
@@ -50,11 +51,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(784, 28);
             this.panel1.TabIndex = 1;
+            this.panel1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDoubleClick);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
             // maximize
             // 
+            this.maximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.maximize.BackColor = System.Drawing.Color.Transparent;
+            this.maximize.BackgroundImage = global::HomsV2.Properties.Resources.maximize;
+            this.maximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.maximize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.maximize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.maximize.FlatAppearance.BorderSize = 0;
@@ -64,16 +69,19 @@
             this.maximize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maximize.ForeColor = System.Drawing.Color.White;
             this.maximize.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.maximize.Location = new System.Drawing.Point(706, 0);
+            this.maximize.Location = new System.Drawing.Point(733, 3);
             this.maximize.Name = "maximize";
-            this.maximize.Size = new System.Drawing.Size(36, 28);
+            this.maximize.Size = new System.Drawing.Size(12, 22);
             this.maximize.TabIndex = 4;
-            this.maximize.Text = "🗖";
             this.maximize.UseVisualStyleBackColor = false;
+            this.maximize.Click += new System.EventHandler(this.maximize_Click);
             // 
             // minimize
             // 
+            this.minimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimize.BackColor = System.Drawing.Color.Transparent;
+            this.minimize.BackgroundImage = global::HomsV2.Properties.Resources.minimize;
+            this.minimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.minimize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.minimize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.minimize.FlatAppearance.BorderSize = 0;
@@ -82,17 +90,20 @@
             this.minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minimize.ForeColor = System.Drawing.Color.White;
-            this.minimize.Location = new System.Drawing.Point(664, 0);
+            this.minimize.Location = new System.Drawing.Point(708, 4);
             this.minimize.Name = "minimize";
-            this.minimize.Size = new System.Drawing.Size(36, 28);
+            this.minimize.Size = new System.Drawing.Size(12, 22);
             this.minimize.TabIndex = 3;
-            this.minimize.Text = "_";
             this.minimize.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.minimize.UseVisualStyleBackColor = false;
+            this.minimize.Click += new System.EventHandler(this.minimize_Click);
             // 
             // exit
             // 
+            this.exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.exit.BackColor = System.Drawing.Color.Transparent;
+            this.exit.BackgroundImage = global::HomsV2.Properties.Resources.close;
+            this.exit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.exit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exit.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
             this.exit.FlatAppearance.BorderSize = 0;
@@ -101,11 +112,10 @@
             this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exit.ForeColor = System.Drawing.Color.White;
-            this.exit.Location = new System.Drawing.Point(748, 0);
+            this.exit.Location = new System.Drawing.Point(757, 0);
             this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(36, 28);
+            this.exit.Size = new System.Drawing.Size(12, 28);
             this.exit.TabIndex = 2;
-            this.exit.Text = "X";
             this.exit.UseVisualStyleBackColor = false;
             this.exit.Click += new System.EventHandler(this.button1_Click);
             this.exit.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
@@ -143,9 +153,10 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Hourly Monitoring System";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();

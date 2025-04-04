@@ -88,7 +88,6 @@ namespace HomsV2
             GetIPAddressFromCentralizedLogin();
 
             InitializeComponent();
-            panel1.MouseDown += panel1_MouseDown;
 
             apiHandler = new APIHandler();
             webViewFunctions = new WebViewFunctions(webView21);
@@ -113,8 +112,18 @@ namespace HomsV2
         {
             if (e.Button == MouseButtons.Left)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+                if (e.Clicks == 2) // Detect double-click
+                {
+                    this.WindowState = this.WindowState == FormWindowState.Normal
+                        ? FormWindowState.Maximized
+                        : FormWindowState.Normal;
+                }
+                else
+                {
+                    // Handle dragging the form
+                    ReleaseCapture();
+                    SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+                }
             }
         }
 
@@ -133,5 +142,21 @@ namespace HomsV2
             
         }
 
+        private void maximize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = this.WindowState == FormWindowState.Normal
+               ? FormWindowState.Maximized
+               : FormWindowState.Normal;
+        }
+
+        private void minimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void panel1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            
+        }
     }
 }
