@@ -22,5 +22,10 @@ namespace HomsV2.Forms
         {
             Process.Start(@"\\apbiphsh07\D0_ShareBrotherGroup\19_BPS\Installer\BPS Centralized Login\setup.exe");
         }
+
+        private void LoginReminders_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

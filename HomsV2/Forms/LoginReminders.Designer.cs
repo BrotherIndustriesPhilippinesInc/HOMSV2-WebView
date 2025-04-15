@@ -129,7 +129,7 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "If you have any concern, you may call BPS-Application group local no. 3407";
             // 
-            // LoginRemindersForm
+            // LoginReminders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -144,8 +144,9 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "LoginRemindersForm";
+            this.Name = "LoginReminders";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginReminders_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
