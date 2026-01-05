@@ -49,7 +49,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 28);
+            this.panel1.Size = new System.Drawing.Size(1280, 28);
             this.panel1.TabIndex = 1;
             this.panel1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDoubleClick);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
@@ -69,7 +69,7 @@
             this.maximize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.maximize.ForeColor = System.Drawing.Color.White;
             this.maximize.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.maximize.Location = new System.Drawing.Point(747, 3);
+            this.maximize.Location = new System.Drawing.Point(1227, 3);
             this.maximize.Name = "maximize";
             this.maximize.Size = new System.Drawing.Size(15, 22);
             this.maximize.TabIndex = 4;
@@ -90,7 +90,7 @@
             this.minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.minimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.minimize.ForeColor = System.Drawing.Color.White;
-            this.minimize.Location = new System.Drawing.Point(717, 4);
+            this.minimize.Location = new System.Drawing.Point(1197, 4);
             this.minimize.Name = "minimize";
             this.minimize.Size = new System.Drawing.Size(15, 22);
             this.minimize.TabIndex = 3;
@@ -112,7 +112,7 @@
             this.exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exit.ForeColor = System.Drawing.Color.White;
-            this.exit.Location = new System.Drawing.Point(775, 0);
+            this.exit.Location = new System.Drawing.Point(1255, 0);
             this.exit.Name = "exit";
             this.exit.Size = new System.Drawing.Size(15, 28);
             this.exit.TabIndex = 2;
@@ -127,7 +127,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 572);
+            this.panel2.Size = new System.Drawing.Size(1280, 692);
             this.panel2.TabIndex = 2;
             // 
             // webView21
@@ -138,18 +138,19 @@
             this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView21.Location = new System.Drawing.Point(0, 0);
             this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(800, 572);
-            this.webView21.Source = new System.Uri("http://apbiphbpsts01:8080/homs/", System.UriKind.Absolute);
+            this.webView21.Size = new System.Drawing.Size(1280, 692);
+            this.webView21.Source = new System.Uri("http://apbiphbpswb02/homs/", System.UriKind.Absolute);
             this.webView21.TabIndex = 0;
             this.webView21.ZoomFactor = 1D;
             this.webView21.CoreWebView2InitializationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs>(this.webView21_CoreWebView2InitializationCompleted);
             this.webView21.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webView21_NavigationCompleted);
+            this.webView21.WebMessageReceived += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs>(this.webView21_WebMessageReceived);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

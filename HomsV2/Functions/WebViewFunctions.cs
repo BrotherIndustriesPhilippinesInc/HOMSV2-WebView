@@ -670,8 +670,33 @@ namespace HomsV2.Functions
                 string message = e.TryGetWebMessageAsString();
                 JObject jsonMessage = JObject.Parse(message);
 
+                var dataToken = jsonMessage["data"];
+
+                if (dataToken is JObject obj)
+                {
+                    // You can safely inspect obj in debugger (table view)
+                    JObject viewableJSON = jsonMessage["data"] as JObject;
+                    string jsonString = viewableJSON.ToString(Newtonsoft.Json.Formatting.Indented);
+
+                    //Console.WriteLine("Data is an object:");
+                    //Console.WriteLine(obj.ToString());
+                }
+                else if (dataToken is JArray arr)
+                {
+                    // You can safely inspect arr in debugger (array view)
+                    JArray viewableJSON = jsonMessage["data"] as JArray;
+                    string jsonString = viewableJSON.ToString(Newtonsoft.Json.Formatting.Indented);
+
+                    //Console.WriteLine("Data is an array:");
+                    //Console.WriteLine(arr.ToString());
+                }
+                else
+                {
+                    Console.WriteLine("Data is neither JObject nor JArray.");
+                }
                 //var data = jsonMessage["data"];
                 //Console.WriteLine($"{jsonMessage}");
+
                 return jsonMessage;
             }
             catch (Exception ex)
@@ -692,6 +717,7 @@ namespace HomsV2.Functions
                 //MessageBox.Show(data.ToString());
 
                 _webView.CoreWebView2.PostWebMessageAsString(jsonData);
+                Console.WriteLine($"Data sent to web: {jsonData}");
             }
             catch (Exception ex)
             {
@@ -903,6 +929,55 @@ namespace HomsV2.Functions
         {
             _webView.CoreWebView2.Stop();
             _webView.Dispose();
+        }
+
+        public async Task<bool> HasChildrenAsync(string searchBy, string name, int classIndex = 0)
+        {
+            searchBy = searchBy.ToLower();
+            string script = "";
+            string jsResult;
+            bool result = false;
+
+            switch (searchBy)
+            {
+                case "id":
+                    script = $@"
+                (function() {{
+                    const el = document.getElementById('{name}');
+                    return el ? el.children.length > 0 : false;
+                }})();";
+                    break;
+
+                case "class":
+                    script = $@"
+                (function() {{
+                    const els = document.getElementsByClassName('{name}');
+                    if (els.length > {classIndex}) {{
+                        return els[{classIndex}].children.length > 0;
+                    }}
+                    return false;
+                }})();";
+                    break;
+
+                case "name":
+                    script = $@"
+                (function() {{
+                    const els = document.getElementsByName('{name}');
+                    if (els.length > 0) {{
+                        return els[0].children.length > 0;
+                    }}
+                    return false;
+                }})();";
+                    break;
+
+                default:
+                    return false;
+            }
+
+            jsResult = await _webView.CoreWebView2.ExecuteScriptAsync(script);
+            // WebView2 returns JSON strings like "true" or "false", including quotes
+            result = jsResult.Trim().ToLower().Contains("true");
+            return result;
         }
     }
 }
