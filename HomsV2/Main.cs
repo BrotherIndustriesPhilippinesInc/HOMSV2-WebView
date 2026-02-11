@@ -17,6 +17,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using WMPLib;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace HomsV2
 {
@@ -97,10 +98,11 @@ namespace HomsV2
             InitializeComponent();
 
             apiHandler = new APIHandler();
-            webViewFunctions = new WebViewFunctions(webView21);
+            webViewFunctions = new WebViewFunctions(webView21, CustomEnvironment: true);
 
             soundManager = new SoundManager();
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -138,12 +140,41 @@ namespace HomsV2
 
         private async void webView21_CoreWebView2InitializationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e)
         {
+            await webViewFunctions.LoadPageAsync("http://apbiphbpswb02/homs/");
+
+            if (e.IsSuccess)
+            {
+                // Allow the popup to happen naturally. 
+                // Because they share the same 'CoreWebView2Environment', 
+                // the cookies from the popup WILL be available to the main viz.
+                webView21.CoreWebView2.NewWindowRequested += (s, args) =>
+                {
+                    // If you want it to open in a new popup window (cleanest for login):
+                    // Just leave args.Handled = false (default) or don't handle this event at all.
+
+                    // If the popup is definitely a login redirect:
+                    Debug.WriteLine($"Popup requested for: {args.Uri}");
+                };
+            }
+
             Dictionary<string, string> post = new Dictionary<string, string> {
                 { "id_number", UserIdNumber.ToString() }
             };
             JObject data = await apiHandler.APIPostCall("http://apbiphbpswb02/homs/api/user/getUser.php", post);
 
             await webViewFunctions.ExecuteJavascript($"localStorage.setItem(\"user\", JSON.stringify({data["data"]}));");
+
+            await webViewFunctions.ExecuteJavascript($@"
+                fetch('/homs/helpers/set_user.php', {{
+                    method: 'POST',
+                    headers: {{
+                        'Content-Type': 'application/json'
+                    }},
+                    body: JSON.stringify({data["data"]})
+                }});
+                window.location.reload();
+            ");
+
 
             string section = data["data"]["Section"]?.ToString();
 

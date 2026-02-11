@@ -54,38 +54,44 @@ namespace HomsV2.Functions
             {
                 if (CustomEnvironment)
                 {
-                    // Define the custom cookies directory
+                    // 1. Define the User Data Folder (This keeps you logged in)
                     string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     string cookiesPath = Path.Combine(documentsPath, "WebView2Cookies");
 
-                    // Ensure the directory exists
                     if (!Directory.Exists(cookiesPath))
                     {
                         Directory.CreateDirectory(cookiesPath);
-                        Console.WriteLine("Directory created.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Directory already exists. Proceeding...");
                     }
 
-                    // Create the WebView2 environment
-                    var environment = await CoreWebView2Environment.CreateAsync(userDataFolder: cookiesPath);
+                    // 2. CRITICAL: Add the options to allow Third-Party Cookies (Fixes Tableau 401 Error)
+                    var options = new Microsoft.Web.WebView2.Core.CoreWebView2EnvironmentOptions();
+                    options.AdditionalBrowserArguments = String.Join(" ",
+    "--disable-features=SameSiteByDefaultCookies,CookiesWithoutSameSiteMustBeSecure",
+    "--auth-server-allowlist=\"*.brother.co.jp\"",
+    "--allow-running-insecure-content",
+    "--disable-web-security" // Use this only if the 401 persists; it relaxes CORS checks
+);
+                    // 3. Create the Environment using the options
+                    var environment = await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(
+                        browserExecutableFolder: null,
+                        userDataFolder: cookiesPath,
+                        options: options);
 
-                    // Initialize WebView2 with the environment
+                    // 4. Initialize WebView2 with this environment
                     await _webView.EnsureCoreWebView2Async(environment);
-                    Console.WriteLine($"WebView2 initialized with User Data Folder: {cookiesPath}");
+
+                    Console.WriteLine($"WebView2 initialized successfully with Tableau settings at: {cookiesPath}");
                 }
                 else
                 {
+                    // Default initialization if CustomEnvironment is false
                     await _webView.EnsureCoreWebView2Async(null);
                 }
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during WebView2 initialization: {ex.Message}");
-                MessageBox.Show($"Error during WebView2 initialization: {ex.Message}");
+                MessageBox.Show($"WebView2 Error: {ex.Message}");
             }
         }
 

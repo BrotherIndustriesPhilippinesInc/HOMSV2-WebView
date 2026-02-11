@@ -139,7 +139,6 @@
             this.webView21.Location = new System.Drawing.Point(0, 0);
             this.webView21.Name = "webView21";
             this.webView21.Size = new System.Drawing.Size(1280, 692);
-            this.webView21.Source = new System.Uri("http://apbiphbpswb02/homs/", System.UriKind.Absolute);
             this.webView21.TabIndex = 0;
             this.webView21.ZoomFactor = 1D;
             this.webView21.CoreWebView2InitializationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs>(this.webView21_CoreWebView2InitializationCompleted);
@@ -169,9 +168,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button exit;
         private System.Windows.Forms.Panel panel2;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
         private System.Windows.Forms.Button minimize;
         private System.Windows.Forms.Button maximize;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
     }
 }
 
